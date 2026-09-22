@@ -2,7 +2,6 @@ package com.muhipo.exambrowser.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.muhipo.exambrowser.security.CryptoUtils
 
 class PreferenceManager(context: Context) {
 
@@ -19,24 +18,9 @@ class PreferenceManager(context: Context) {
         private const val KEY_SCREENSHOT_PROTECTED = "key_screenshot_protected"
         private const val KEY_ALLOW_BACK = "key_allow_back"
         private const val KEY_ALLOW_DOWNLOADS = "key_allow_downloads"
+        private const val KEY_INDEXEDDB_CACHE_ENABLED = "key_indexeddb_cache_enabled"
 
         private const val KEY_WHITELIST_DOMAINS = "key_whitelist_domains"
-        private const val KEY_ADMIN_PIN_HASH = "key_admin_pin_hash"
-        private const val KEY_ADMIN_PIN_SALT = "key_admin_pin_salt"
-
-        private const val DEFAULT_PIN = "123456"
-    }
-
-    init {
-        // Initialize default hashed PIN if not set
-        if (!prefs.contains(KEY_ADMIN_PIN_HASH)) {
-            val salt = CryptoUtils.generateSalt()
-            val hash = CryptoUtils.hashPin(DEFAULT_PIN, salt)
-            prefs.edit()
-                .putString(KEY_ADMIN_PIN_SALT, salt)
-                .putString(KEY_ADMIN_PIN_HASH, hash)
-                .apply()
-        }
     }
 
     // --- Exam Session Management ---
@@ -87,6 +71,10 @@ class PreferenceManager(context: Context) {
         get() = prefs.getBoolean(KEY_ALLOW_DOWNLOADS, false)
         set(value) = prefs.edit().putBoolean(KEY_ALLOW_DOWNLOADS, value).apply()
 
+    var isIndexedDbCacheEnabled: Boolean
+        get() = prefs.getBoolean(KEY_INDEXEDDB_CACHE_ENABLED, true)
+        set(value) = prefs.edit().putBoolean(KEY_INDEXEDDB_CACHE_ENABLED, value).apply()
+
     // --- Whitelist Management ---
 
     fun getWhitelistDomains(): MutableSet<String> {
@@ -109,22 +97,5 @@ class PreferenceManager(context: Context) {
         if (domains.remove(cleanDomain)) {
             prefs.edit().putStringSet(KEY_WHITELIST_DOMAINS, domains).apply()
         }
-    }
-
-    // --- Admin PIN Management ---
-
-    fun verifyAdminPin(enteredPin: String): Boolean {
-        val salt = prefs.getString(KEY_ADMIN_PIN_SALT, null) ?: return false
-        val expectedHash = prefs.getString(KEY_ADMIN_PIN_HASH, null) ?: return false
-        return CryptoUtils.verifyPin(enteredPin, salt, expectedHash)
-    }
-
-    fun updateAdminPin(newPin: String) {
-        val newSalt = CryptoUtils.generateSalt()
-        val newHash = CryptoUtils.hashPin(newPin, newSalt)
-        prefs.edit()
-            .putString(KEY_ADMIN_PIN_SALT, newSalt)
-            .putString(KEY_ADMIN_PIN_HASH, newHash)
-            .apply()
     }
 }

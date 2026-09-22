@@ -8,6 +8,7 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import com.muhipo.exambrowser.cache.CbtCacheScriptInjector
 import com.muhipo.exambrowser.security.SecurityManager
 import com.muhipo.exambrowser.utils.UrlValidator
 
@@ -62,8 +63,12 @@ class ExamWebClient(
     override fun onPageFinished(view: WebView?, url: String?) {
         super.onPageFinished(view, url)
         listener.onPageLoading(false)
-        view?.let {
-            SecurityManager.injectAntiCopyCss(it)
+        view?.let { web ->
+            SecurityManager.injectAntiCopyCss(web)
+            val host = UrlValidator.extractHost(url ?: "") ?: ""
+            if (host.isNotEmpty()) {
+                CbtCacheScriptInjector.injectEngine(web, host)
+            }
         }
     }
 

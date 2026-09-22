@@ -74,9 +74,9 @@
             android:theme="@style/Theme.ExamBrowser.Fullscreen"
             android:windowSoftInputMode="adjustResize" />
 
-        <!-- Administrator Settings Activity -->
+        <!-- Information Activity -->
         <activity
-            android:name=".admin.AdminActivity"
+            android:name=".info.InfoActivity"
             android:exported="false"
             android:theme="@style/Theme.ExamBrowser" />
 

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Ujian Muhipo</string>
-    
+
     <!-- Home Screen - SMA Muhammadiyah 1 Ponorogo -->
     <string name="school_header">SMA MUHAMMADIYAH 1 PONOROGO</string>
     <string name="logo_sma">SMA</string>
@@ -11,26 +11,27 @@
     <string name="status_device_owner_mode">Restricted Mode • Full Device Owner Kiosk</string>
     <string name="btn_scan_qr">SCAN QR IP / LINK SERVER</string>
     <string name="btn_enter_url_manually">INPUT IP / URL MANUAL</string>
+    <string name="btn_info_app">INFORMASI APLIKASI &amp; MUHIPO DEV</string>
     <string name="btn_refresh_page">Muat Ulang Halaman</string>
     <string name="btn_exit_exam">KELUAR</string>
     <string name="info_scan_instruction">Arahkan kamera ke QR Code atau input alamat URL yang diberikan proktor sekolah.</string>
     <string name="info_android_support">Mendukung OS: Android 7.0 (Nougat) s/d Android 16</string>
     <string name="info_version">Ujian Muhipo v1.6 • Support Android 7 - 16 • Muhipo Dev</string>
-    
+
     <!-- Manual URL / IP Dialog -->
     <string name="dialog_manual_url_title">Input IP / Link Server Ujian</string>
     <string name="dialog_manual_url_hint">Contoh: 192.168.1.100 atau http://192.168.1.100:8080</string>
     <string name="btn_start_exam">MULAI UJIAN</string>
     <string name="btn_cancel">BATAL</string>
     <string name="error_invalid_url">Alamat IP atau URL server ujian tidak valid.</string>
-    
+
     <!-- Scanner -->
     <string name="scanner_title">Pindai QR Server Ujian</string>
     <string name="scanner_prompt">Posisikan QR Code IP Server Ujian di dalam bingkai</string>
     <string name="error_invalid_exam_code">Format QR Code / IP Server Ujian tidak valid.</string>
     <string name="camera_permission_required">Izin kamera diperlukan untuk memindai QR Code ujian.</string>
     <string name="btn_grant_permission">BERIKAN IZIN</string>
-    
+
     <!-- Exam WebView & Anti-cheat -->
     <string name="exam_loading">Memuat halaman ujian SMA Muhi Ponorogo...</string>
     <string name="error_unable_to_load">Gagal memuat halaman ujian.</string>
@@ -38,36 +39,27 @@
     <string name="error_outside_domain">Halaman ini di luar domain server ujian yang diizinkan.</string>
     <string name="back_disabled_msg">Tombol kembali dinonaktifkan selama ujian berlangsung.</string>
     <string name="download_blocked_msg">Unduhan berkas dinonaktifkan selama ujian.</string>
-    <string name="kiosk_admin_required">Kiosk mode memerlukan konfigurasi Device Admin.</string>
-    <string name="kiosk_active_notice">Mode Ujian Terkunci (Kiosk) Aktif</string>
-    
-    <!-- Offline Screen -->
+
+    <!-- Offline Screen & IndexedDB Cache -->
     <string name="offline_title">TIDAK ADA KONEKSI INTERNET</string>
     <string name="offline_desc">Periksa koneksi Wi-Fi / jaringan ke server ujian sekolah dan coba lagi.</string>
-    
+    <string name="cache_banner_offline">⚠️ Mode Offline : Koneksi Terputus, Jawaban aman tersimpan di cache.</string>
+    <string name="cache_banner_reconnecting">🔄 Terhubung Kembali : Menyinkronkan &amp; merilis cache ke server CBT...</string>
+    <string name="cache_banner_synced">✅ Seluruh jawaban berhasil dirilis &amp; tersinkronisasi ke server CBT!</string>
+
     <!-- Finish Exam Dialog -->
     <string name="dialog_finish_title">PERINGATAN KELUAR UJIAN!</string>
     <string name="dialog_finish_message">Laporkan ke Pengawas Ujian untuk keluar dari ujian.</string>
     <string name="buzzer_badge_notice">🚨 Sirine &amp; Volume Maksimal Aktif 🚨</string>
     <string name="btn_finish">SELESAI</string>
-    
-    <!-- Admin Mode -->
-    <string name="admin_title">Pengaturan Administrator MUHIPO</string>
-    <string name="admin_enter_pin">Masukkan PIN Admin</string>
-    <string name="admin_pin_hint">PIN (6 digit)</string>
-    <string name="error_incorrect_pin">PIN Admin salah.</string>
-    <string name="admin_whitelist_title">Domain / IP Diizinkan (Whitelist)</string>
-    <string name="admin_add_domain">Tambah IP/Domain</string>
-    <string name="admin_kiosk_toggle">Aktifkan Mode Kiosk Terkunci</string>
-    <string name="admin_kiosk_desc">Cegah navigasi Home, Recent Apps, dan pembagian layar</string>
-    <string name="admin_screenshot_toggle">Blokir Tangkapan Layar (Screenshot)</string>
-    <string name="admin_screenshot_desc">Perlindungan anti-bocor soal (FLAG_SECURE)</string>
-    <string name="admin_back_toggle">Izinkan Navigasi Kembali di WebView</string>
-    <string name="admin_back_desc">Izinkan siswa kembali ke halaman sebelumnya di web</string>
-    <string name="admin_reset_session">Hapus Sesi Ujian Aktif</string>
-    <string name="admin_change_pin">Ubah PIN Admin</string>
-    <string name="admin_device_owner_title">Status Device Owner</string>
-    <string name="admin_device_owner_active">Aktif (Kiosk Penuh Terkunci)</string>
-    <string name="admin_device_owner_inactive">Belum Dikonfigurasi (Pinning Standar)</string>
-    <string name="admin_btn_save">SIMPAN</string>
+
+    <!-- Info Activity Strings -->
+    <string name="info_title">Informasi Aplikasi &amp; Pengembang</string>
+    <string name="info_version_tag">Versi 1.6 (Android 7.0 s/d 16 Compatible)</string>
+    <string name="info_app_description">Ujian Muhipo adalah aplikasi CBT Exam Browser resmi SMA Muhammadiyah 1 Ponorogo. Dirancang khusus untuk menciptakan lingkungan ujian digital yang aman, jujur, terisolasi, dan berkinerja tinggi. Dilengkapi perlindungan Kiosk Lock Task, pencegahan tangkapan layar, sistem alarm pengawas, serta teknologi IndexedDB Client Caching yang menjamin jawaban siswa tetap aman tersimpan saat koneksi jaringan terputus.</string>
+    <string name="info_muhipo_dev_title">Tentang Muhipo Dev</string>
+    <string name="info_muhipo_dev_description">Muhipo Dev adalah tim pengembang teknologi informasi internal SMA Muhammadiyah 1 Ponorogo. Berkomitmen menghadirkan inovasi digital independen, teruji, dan efisien untuk mendukung seluruh ekosistem evaluasi akademik dan pembelajaran berbasis teknologi di lingkungan sekolah.</string>
+    <string name="info_features_title">Keunggulan &amp; Fitur Utama</string>
+    <string name="info_features_list">⚡ IndexedDB Offline Caching: Menyimpan jawaban secara lokal saat jaringan/server terputus dan melakukan sinkronisasi otomatis saat terhubung kembali.\n\n🛡️ Pengamanan Anti-Curang: Mencegah navigasi keluar aplikasi, tombol kembali, tangkapan layar, dan copy-paste.\n\n🌐 Dukungan Multi-Server CBT: Kompatibel dengan Candy CBT, BeeSMART, Moodle, CBT Sync, dan server ujian intranet sekolah.\n\n🚨 Sistem Peringatan Alarm: Sirine volume maksimal otomatis aktif jika siswa berupaya keluar dari ujian tanpa izin pengawas.</string>
+    <string name="info_footer">© Muhipo Dev • SMA Muhammadiyah 1 Ponorogo</string>
 </resources>

@@ -16,6 +16,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.muhipo.exambrowser.databinding.ActivityMainBinding
 import com.muhipo.exambrowser.databinding.DialogManualUrlBinding
 import com.muhipo.exambrowser.exam.ExamActivity
+import com.muhipo.exambrowser.info.InfoActivity
 import com.muhipo.exambrowser.kiosk.KioskManager
 import com.muhipo.exambrowser.scanner.ScannerActivity
 import com.muhipo.exambrowser.utils.PreferenceManager
@@ -74,6 +75,12 @@ class MainActivity : AppCompatActivity() {
         // Big Button: SCAN QR / BARCODE
         binding.btnScanQr.setOnClickListener {
             val intent = Intent(this, ScannerActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Information Button: INFORMASI APLIKASI & MUHIPO DEV
+        binding.btnInfoApp.setOnClickListener {
+            val intent = Intent(this, InfoActivity::class.java)
             startActivity(intent)
         }
 

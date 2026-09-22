@@ -41,6 +41,12 @@ object SecurityManager {
                     WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
         )
 
+        // 3. Enforce FLAG_SECURE by default to block screenshot & screen recording
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_SECURE,
+            WindowManager.LayoutParams.FLAG_SECURE
+        )
+
         WindowCompat.setDecorFitsSystemWindows(window, false)
         val controller = WindowInsetsControllerCompat(window, window.decorView)
 
@@ -56,7 +62,7 @@ object SecurityManager {
 
         hideSystemBars.run()
 
-        // 3. Apply legacy system UI flags for additional lock protection on OEM ROMs
+        // 4. Apply legacy system UI flags for additional lock protection on OEM ROMs
         window.decorView.systemUiVisibility = (
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                         or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -66,7 +72,7 @@ object SecurityManager {
                         or View.SYSTEM_UI_FLAG_FULLSCREEN
                 )
 
-        // 4. Continuously enforce system bar suppression when insets change or swipe occurs
+        // 5. Continuously enforce system bar suppression when insets change or swipe occurs
         ViewCompat.setOnApplyWindowInsetsListener(window.decorView) { _, insets ->
             if (insets.isVisible(WindowInsetsCompat.Type.navigationBars()) ||
                 insets.isVisible(WindowInsetsCompat.Type.statusBars())
@@ -112,13 +118,13 @@ object SecurityManager {
     }
 
     /**
-     * Injects CSS & JavaScript protection rules to block text selection, copy/cut,
-     * context menus, and developer shortcuts on static content.
+     * Injects CSS & JavaScript protection rules to block text selection, copy/cut/paste,
+     * translate popups, context menus, and developer shortcuts.
      */
     fun injectAntiCopyCss(webView: WebView) {
         val js = """
             (function() {
-                // 1. Inject CSS rule for anti-copy/anti-selection
+                // 1. Inject CSS rule for anti-copy/anti-selection/anti-callout
                 var style = document.createElement('style');
                 style.type = 'text/css';
                 style.innerHTML = `
@@ -134,7 +140,7 @@ object SecurityManager {
                 `;
                 document.head.appendChild(style);
 
-                // 2. Prevent right-click / context menu
+                // 2. Prevent right-click / context menu / translation popups
                 document.addEventListener('contextmenu', function(e) {
                     e.preventDefault();
                     return false;
@@ -146,13 +152,26 @@ object SecurityManager {
                     return false;
                 }, true);
 
-                // 4. Prevent text selection on static elements
+                // 4. Prevent text selection, copy, cut, paste
                 document.addEventListener('selectstart', function(e) {
                     var tag = e.target.tagName;
                     if (tag !== 'INPUT' && tag !== 'TEXTAREA' && !e.target.isContentEditable) {
                         e.preventDefault();
                         return false;
                     }
+                }, true);
+
+                document.addEventListener('copy', function(e) {
+                    var tag = e.target.tagName;
+                    if (tag !== 'INPUT' && tag !== 'TEXTAREA' && !e.target.isContentEditable) {
+                        e.preventDefault();
+                        return false;
+                    }
+                }, true);
+
+                document.addEventListener('cut', function(e) {
+                    e.preventDefault();
+                    return false;
                 }, true);
 
                 // 5. Block inspection / copy keyboard shortcuts (Ctrl+C, Ctrl+U, Ctrl+S, F12)

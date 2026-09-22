@@ -11,6 +11,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,6 +24,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import com.google.zxing.*
+import com.google.zxing.common.GlobalHistogramBinarizer
 import com.google.zxing.common.HybridBinarizer
 import com.muhipo.exambrowser.R
 import com.muhipo.exambrowser.databinding.ActivityScannerBinding
@@ -32,8 +34,13 @@ import com.muhipo.exambrowser.utils.UrlValidator
 import java.nio.ByteBuffer
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 
+/**
+ * CameraX QR Scanner optimized for all Android devices from Android 7.0 (API 24) to Android 16.
+ * Specifically tuned for cheap/budget camera hardware (fixed-focus, low-resolution 2MP/5MP sensors).
+ */
 class ScannerActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityScannerBinding
@@ -67,6 +74,7 @@ class ScannerActivity : AppCompatActivity() {
 
         setupEdgeToEdge()
         setupControls()
+        setupTapToFocus()
         checkCameraPermissionAndStart()
     }
 
@@ -90,6 +98,22 @@ class ScannerActivity : AppCompatActivity() {
 
         binding.btnToggleFlash.setOnClickListener {
             toggleTorch()
+        }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun setupTapToFocus() {
+        binding.previewView.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                val cam = camera ?: return@setOnTouchListener false
+                val factory = binding.previewView.meteringPointFactory
+                val point = factory.createPoint(event.x, event.y)
+                val action = FocusMeteringAction.Builder(point, FocusMeteringAction.FLAG_AF or FocusMeteringAction.FLAG_AE)
+                    .setAutoCancelDuration(3, TimeUnit.SECONDS)
+                    .build()
+                cam.cameraControl.startFocusAndMetering(action)
+            }
+            true
         }
     }
 
@@ -119,15 +143,18 @@ class ScannerActivity : AppCompatActivity() {
                 val cameraProvider = cameraProviderFuture.get()
                 bindCameraUseCases(cameraProvider)
             } catch (e: Exception) {
-                Toast.makeText(this, "Failed to initialize camera: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Camera initialization error: ${e.message}", Toast.LENGTH_SHORT).show()
                 finish()
             }
         }, ContextCompat.getMainExecutor(this))
     }
 
+    @Suppress("DEPRECATION")
     @SuppressLint("UnsafeOptInUsageError")
     private fun bindCameraUseCases(cameraProvider: ProcessCameraProvider) {
+        // Use standard 4:3 ratio for maximum camera sensor compatibility on cheap phones
         val preview = Preview.Builder()
+            .setTargetAspectRatio(AspectRatio.RATIO_4_3)
             .build()
             .also {
                 it.surfaceProvider = binding.previewView.surfaceProvider
@@ -140,19 +167,16 @@ class ScannerActivity : AppCompatActivity() {
                     BarcodeFormat.CODE_128,
                     BarcodeFormat.CODE_39,
                     BarcodeFormat.EAN_13,
-                    BarcodeFormat.EAN_8,
-                    BarcodeFormat.UPC_A,
-                    BarcodeFormat.UPC_E,
-                    BarcodeFormat.DATA_MATRIX,
-                    BarcodeFormat.PDF_417,
-                    BarcodeFormat.ITF
+                    BarcodeFormat.DATA_MATRIX
                 ),
-                DecodeHintType.TRY_HARDER to true
+                DecodeHintType.TRY_HARDER to true,
+                DecodeHintType.CHARACTER_SET to "UTF-8"
             )
             setHints(hints)
         }
 
         val imageAnalysis = ImageAnalysis.Builder()
+            .setTargetAspectRatio(AspectRatio.RATIO_4_3)
             .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
             .build()
             .also { analysis ->
@@ -170,8 +194,17 @@ class ScannerActivity : AppCompatActivity() {
         try {
             cameraProvider.unbindAll()
             camera = cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalysis)
+
+            // Trigger continuous auto focus & auto exposure
+            val factory = binding.previewView.meteringPointFactory
+            val centerPoint = factory.createPoint(binding.previewView.width / 2f, binding.previewView.height / 2f)
+            val action = FocusMeteringAction.Builder(centerPoint, FocusMeteringAction.FLAG_AF or FocusMeteringAction.FLAG_AE)
+                .disableAutoCancel()
+                .build()
+            camera?.cameraControl?.startFocusAndMetering(action)
+
         } catch (e: Exception) {
-            Toast.makeText(this, "Use case binding failed: ${e.message}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Camera binding error: ${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -184,36 +217,40 @@ class ScannerActivity : AppCompatActivity() {
         val height = imageProxy.height
         val rotationDegrees = imageProxy.imageInfo.rotationDegrees
 
-        // Convert byte buffer to LuminanceSource
-        val source = PlanarYUVLuminanceSource(
+        var source: LuminanceSource = PlanarYUVLuminanceSource(
             bytes, width, height, 0, 0, width, height, false
         )
 
-        // Handle rotation if camera feed is rotated
-        val rotatedSource = if (rotationDegrees != 0) {
-            rotateLuminanceSource(source, rotationDegrees)
-        } else {
-            source
+        if (rotationDegrees != 0) {
+            source = rotateLuminanceSource(source, rotationDegrees)
         }
 
-        val binaryBitmap = BinaryBitmap(HybridBinarizer(rotatedSource))
+        var decodedText: String? = null
 
+        // Pass 1: Try HybridBinarizer (best for good lighting)
         try {
-            val result = reader.decodeWithState(binaryBitmap)
-            val scannedText = result.text?.trim()
-            if (!scannedText.isNullOrEmpty()) {
-                isProcessingScan.set(true)
-                mainHandler.post {
-                    handleScanResult(scannedText)
-                }
-            }
+            val bitmap = BinaryBitmap(HybridBinarizer(source))
+            val result = reader.decodeWithState(bitmap)
+            decodedText = result.text?.trim()
         } catch (_: NotFoundException) {
-            // No barcode detected in frame - ignore
+            // Pass 2: Fallback to GlobalHistogramBinarizer for low-end cheap camera sensors
+            try {
+                reader.reset()
+                val fallbackBitmap = BinaryBitmap(GlobalHistogramBinarizer(source))
+                val fallbackResult = reader.decodeWithState(fallbackBitmap)
+                decodedText = fallbackResult.text?.trim()
+            } catch (_: Exception) {}
         } catch (_: Exception) {
-            // Decoding exception - ignore
         } finally {
             reader.reset()
             imageProxy.close()
+        }
+
+        if (!decodedText.isNullOrEmpty() && !isProcessingScan.get()) {
+            isProcessingScan.set(true)
+            mainHandler.post {
+                handleScanResult(decodedText)
+            }
         }
     }
 
@@ -241,16 +278,13 @@ class ScannerActivity : AppCompatActivity() {
 
     private fun handleScanResult(rawText: String) {
         if (UrlValidator.isValidHttpUrl(rawText)) {
-            // Vibrate subtly on success
             vibrateSuccess()
 
-            // Auto-whitelist scanned domain
             val host = UrlValidator.extractHost(rawText)
             if (!host.isNullOrEmpty()) {
                 preferenceManager.addWhitelistDomain(host)
             }
 
-            // Start exam session & launch ExamActivity
             preferenceManager.startExamSession(rawText)
 
             val intent = Intent(this, ExamActivity::class.java).apply {
@@ -260,11 +294,9 @@ class ScannerActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         } else {
-            // Show "Invalid exam code." on screen
             binding.cardInvalidCode.visibility = View.VISIBLE
             binding.tvInvalidCode.text = getString(R.string.error_invalid_exam_code)
 
-            // Resume scanning after 2.5 seconds
             mainHandler.postDelayed({
                 binding.cardInvalidCode.visibility = View.GONE
                 isProcessingScan.set(false)
@@ -274,7 +306,7 @@ class ScannerActivity : AppCompatActivity() {
 
     private fun vibrateSuccess() {
         try {
-            val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            val vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
             } else {

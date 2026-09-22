@@ -36,6 +36,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.muhipo.exambrowser.MainActivity
 import com.muhipo.exambrowser.R
 import com.muhipo.exambrowser.audio.PoliceSirenPlayer
+import com.muhipo.exambrowser.cache.CbtCacheScriptInjector
+import com.muhipo.exambrowser.cache.IndexedDBJavascriptInterface
 import com.muhipo.exambrowser.databinding.ActivityExamBinding
 import com.muhipo.exambrowser.databinding.DialogFinishExamBinding
 import com.muhipo.exambrowser.kiosk.KioskManager
@@ -120,16 +122,10 @@ class ExamActivity : AppCompatActivity(), ExamWebClient.Listener {
     }
 
     private fun setupLockTaskKiosk() {
-        if (preferenceManager.isKioskEnabled) {
-            if (kioskManager.isDeviceOwner()) {
-                // Device Owner mode: start silent Lock Task without any "App pinned" system popup
-                kioskManager.startKiosk(this)
-            } else {
-                // Non-Device Owner mode: enforce strict immersive sticky mode & window security.
-                // Do NOT call unmanaged startLockTask() to avoid triggering the OS "App pinned" system popup.
-                SecurityManager.enableStrictImmersiveMode(window)
-            }
+        if (preferenceManager.isKioskEnabled && !kioskManager.isInLockTaskMode()) {
+            kioskManager.startKiosk(this)
         }
+        SecurityManager.enableStrictImmersiveMode(window)
     }
 
     private fun setupBackHandler() {
@@ -179,6 +175,18 @@ class ExamActivity : AppCompatActivity(), ExamWebClient.Listener {
         settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
         @Suppress("DEPRECATION")
         settings.databaseEnabled = true
+        @Suppress("DEPRECATION")
+        settings.databasePath = applicationContext.getDir("databases", MODE_PRIVATE).path
+
+        // IndexedDB & Client Cache Setup
+        if (preferenceManager.isIndexedDbCacheEnabled) {
+            val jsBridge = IndexedDBJavascriptInterface(this) { isPending, statusMsg ->
+                runOnUiThread {
+                    showCacheSyncBanner(isPending, statusMsg)
+                }
+            }
+            webView.addJavascriptInterface(jsBridge, "ExamBrowserCacheBridge")
+        }
 
         // Cookie management
         val cookieManager = CookieManager.getInstance()
@@ -242,19 +250,51 @@ class ExamActivity : AppCompatActivity(), ExamWebClient.Listener {
         networkCallback = networkUtils.registerNetworkCallback(
             onNetworkAvailable = {
                 runOnUiThread {
-                    binding.layoutOffline.visibility = View.GONE
-                    // Jika halaman error sedang muncul atau webview kosong, coba muat ulang begitu koneksi WiFi siap
-                    if (binding.layoutError.visibility == View.VISIBLE || binding.examWebView.url.isNullOrEmpty() || binding.examWebView.url == "about:blank") {
+                    if (binding.layoutOffline.visibility == View.VISIBLE || binding.layoutError.visibility == View.VISIBLE || binding.examWebView.url.isNullOrEmpty() || binding.examWebView.url == "about:blank") {
+                        binding.layoutOffline.visibility = View.GONE
+                        binding.layoutError.visibility = View.GONE
                         loadExamUrl()
+                    } else {
+                        // Terhubung kembali saat WebView aktif -> Trigger IndexedDB auto-release sync!
+                        showCacheSyncBanner(false, getString(R.string.cache_banner_reconnecting))
+                        CbtCacheScriptInjector.triggerSyncRelease(binding.examWebView)
+                        binding.layoutCacheBanner.postDelayed({
+                            showCacheSyncBanner(false, getString(R.string.cache_banner_synced))
+                            hideCacheSyncBannerDelayed()
+                        }, 2500)
                     }
                 }
             },
             onNetworkLost = {
                 runOnUiThread {
-                    binding.layoutOffline.visibility = View.VISIBLE
+                    // Saat koneksi terputus ditengah ujian, jika WebView sedang menampilkan soal, jangan tutup WebView.
+                    // Tampilkan banner floating top agar siswa tetap dapat menjawab soal offline dengan IndexedDB!
+                    if (!binding.examWebView.url.isNullOrEmpty() && binding.examWebView.url != "about:blank" && binding.layoutError.visibility != View.VISIBLE) {
+                        showCacheSyncBanner(true, getString(R.string.cache_banner_offline))
+                    } else {
+                        binding.layoutOffline.visibility = View.VISIBLE
+                    }
                 }
             }
         )
+    }
+
+    private fun showCacheSyncBanner(isWarning: Boolean, message: String) {
+        binding.layoutCacheBanner.visibility = View.VISIBLE
+        binding.tvCacheBannerText.text = message
+        if (isWarning) {
+            binding.imgCacheBannerIcon.setImageResource(R.drawable.ic_warning)
+            binding.imgCacheBannerIcon.setColorFilter(ContextCompat.getColor(this, R.color.brand_gold))
+        } else {
+            binding.imgCacheBannerIcon.setImageResource(R.drawable.ic_refresh)
+            binding.imgCacheBannerIcon.setColorFilter(ContextCompat.getColor(this, R.color.brand_green))
+        }
+    }
+
+    private fun hideCacheSyncBannerDelayed() {
+        binding.layoutCacheBanner.postDelayed({
+            binding.layoutCacheBanner.visibility = View.GONE
+        }, 3500)
     }
 
     private fun loadExamUrl() {
@@ -459,7 +499,7 @@ class ExamActivity : AppCompatActivity(), ExamWebClient.Listener {
         super.onResume()
         SecurityManager.enableStrictImmersiveMode(window)
         registerSystemDialogReceiver()
-        if (preferenceManager.isKioskEnabled && kioskManager.isDeviceOwner() && !kioskManager.isInLockTaskMode()) {
+        if (preferenceManager.isKioskEnabled && !kioskManager.isInLockTaskMode()) {
             kioskManager.startKiosk(this)
         }
     }

@@ -113,6 +113,42 @@
             android:layout_height="match_parent"
             android:overScrollMode="never" />
 
+        <!-- Floating Non-Intrusive Offline / Sync Status Banner -->
+        <LinearLayout
+            android:id="@+id/layoutCacheBanner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:background="#E61E293B"
+            android:elevation="6dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="14dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="14dp"
+            android:paddingBottom="8dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ImageView
+                android:id="@+id/imgCacheBannerIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_warning"
+                app:tint="@color/brand_gold" />
+
+            <TextView
+                android:id="@+id/tvCacheBannerText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/cache_banner_offline"
+                android:textColor="@color/text_white"
+                android:textSize="12sp" />
+        </LinearLayout>
+
         <!-- Offline Screen (Full Overlay) -->
         <LinearLayout
             android:id="@+id/layoutOffline"

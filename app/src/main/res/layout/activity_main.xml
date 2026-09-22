@@ -224,6 +224,26 @@
                         app:iconPadding="10dp"
                         app:iconTint="@color/text_white" />
 
+                    <!-- Information Button: INFORMASI APLIKASI & MUHIPO DEV -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnInfoApp"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="sans-serif-bold"
+                        android:letterSpacing="0.03"
+                        android:text="@string/btn_info_app"
+                        android:textColor="@color/brand_navy"
+                        android:textSize="12sp"
+                        app:cornerRadius="12dp"
+                        app:icon="@drawable/ic_settings"
+                        app:iconGravity="textStart"
+                        app:iconPadding="8dp"
+                        app:iconTint="@color/brand_navy"
+                        app:strokeColor="@color/brand_navy"
+                        app:strokeWidth="1.5dp" />
+
                     <!-- Secondary Action Button: MANUAL URL / IP (Hidden, accessed via logo tap) -->
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnEnterUrlManually"
