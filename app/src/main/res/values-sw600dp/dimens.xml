@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Small Tablet & Foldable Dimensions (sw >= 600dp) -->
+    <dimen name="content_max_width">620dp</dimen>
+    <dimen name="content_padding">32dp</dimen>
+    <dimen name="card_padding">28dp</dimen>
+
+    <!-- Logo & Image Sizes -->
+    <dimen name="logo_size">220dp</dimen>
+
+    <!-- Typography -->
+    <dimen name="title_text_size">30sp</dimen>
+    <dimen name="subtitle_text_size">15sp</dimen>
+    <dimen name="body_text_size">14sp</dimen>
+    <dimen name="caption_text_size">12sp</dimen>
+
+    <!-- Buttons -->
+    <dimen name="primary_button_height">60dp</dimen>
+    <dimen name="secondary_button_height">56dp</dimen>
+    <dimen name="button_text_size">16sp</dimen>
+    <dimen name="button_corner_radius">14dp</dimen>
+
+    <!-- Navigation Bar & Dialogs -->
+    <dimen name="navbar_height">64dp</dimen>
+    <dimen name="dialog_max_width">500dp</dimen>
+    <dimen name="dialog_padding">28dp</dimen>
+
+    <!-- Scanner Topbar -->
+    <dimen name="scanner_topbar_padding_top">24dp</dimen>
+</resources>

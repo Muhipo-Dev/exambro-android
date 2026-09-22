@@ -39,9 +39,11 @@ class ViewfinderView @JvmOverloads constructor(
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        val boxSize = (w.coerceAtMost(h) * 0.72f).toInt()
+        val minDim = w.coerceAtMost(h)
+        val ratio = if (w > h) 0.62f else 0.72f
+        val boxSize = (minDim * ratio).toInt().coerceAtLeast(180)
         val left = (w - boxSize) / 2
-        val top = (h - boxSize) / 2 - (h * 0.05f).toInt()
+        val top = (h - boxSize) / 2 - (if (w > h) 0 else (h * 0.04f).toInt())
         framingRect.set(left, top, left + boxSize, top + boxSize)
         laserY = framingRect.top.toFloat()
     }

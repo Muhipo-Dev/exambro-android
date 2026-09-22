@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default Mobile / Phone Dimensions -->
+    <dimen name="content_max_width">540dp</dimen>
+    <dimen name="content_padding">20dp</dimen>
+    <dimen name="card_padding">20dp</dimen>
+
+    <!-- Logo & Image Sizes -->
+    <dimen name="logo_size">180dp</dimen>
+
+    <!-- Typography -->
+    <dimen name="title_text_size">26sp</dimen>
+    <dimen name="subtitle_text_size">13sp</dimen>
+    <dimen name="body_text_size">13sp</dimen>
+    <dimen name="caption_text_size">11sp</dimen>
+
+    <!-- Buttons -->
+    <dimen name="primary_button_height">56dp</dimen>
+    <dimen name="secondary_button_height">52dp</dimen>
+    <dimen name="button_text_size">14sp</dimen>
+    <dimen name="button_corner_radius">12dp</dimen>
+
+    <!-- Navigation Bar & Dialogs -->
+    <dimen name="navbar_height">56dp</dimen>
+    <dimen name="dialog_max_width">420dp</dimen>
+    <dimen name="dialog_padding">24dp</dimen>
+
+    <!-- Scanner Topbar -->
+    <dimen name="scanner_topbar_padding_top">32dp</dimen>
+</resources>

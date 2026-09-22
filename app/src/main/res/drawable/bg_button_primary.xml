@@ -1,13 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="#33FFFFFF">
-    <item>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Focused state for Android TV / Keyboard D-Pad -->
+    <item android:state_focused="true">
         <shape android:shape="rectangle">
             <gradient
                 android:angle="45"
-                android:endColor="#1E40AF"
-                android:startColor="#2563EB" />
+                android:endColor="#1D4ED8"
+                android:startColor="#3B82F6" />
+            <stroke
+                android:width="3dp"
+                android:color="#FEF08A" />
             <corners android:radius="14dp" />
         </shape>
     </item>
-</ripple>
+
+    <!-- Pressed / Touch state -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="45"
+                android:endColor="#1E3A8A"
+                android:startColor="#1E40AF" />
+            <corners android:radius="14dp" />
+        </shape>
+    </item>
+
+    <!-- Normal state -->
+    <item>
+        <ripple android:color="#33FFFFFF">
+            <item>
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:angle="45"
+                        android:endColor="#1E40AF"
+                        android:startColor="#2563EB" />
+                    <corners android:radius="14dp" />
+                </shape>
+            </item>
+        </ripple>
+    </item>
+</selector>

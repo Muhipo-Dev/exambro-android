@@ -16,17 +16,17 @@
         android:background="@color/brand_navy"
         android:elevation="4dp"
         android:gravity="center_vertical"
-        android:minHeight="56dp"
+        android:minHeight="@dimen/navbar_height"
         android:orientation="horizontal"
-        android:paddingStart="12dp"
+        android:paddingStart="16dp"
         android:paddingTop="8dp"
-        android:paddingEnd="12dp"
+        android:paddingEnd="16dp"
         android:paddingBottom="8dp">
 
         <!-- App / School Logo -->
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:contentDescription="@string/app_name"
             android:src="@drawable/ic_logo_muhipo" />
 
@@ -34,7 +34,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="12dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -45,7 +45,7 @@
                 android:letterSpacing="0.04"
                 android:text="@string/title_exam_browser"
                 android:textColor="@color/text_white"
-                android:textSize="14sp" />
+                android:textSize="@dimen/button_text_size" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -53,17 +53,18 @@
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/school_header"
                 android:textColor="@color/brand_gold"
-                android:textSize="11sp" />
+                android:textSize="@dimen/caption_text_size" />
         </LinearLayout>
 
         <!-- Refresh Page Button -->
         <ImageButton
             android:id="@+id/btnRefreshWeb"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
             android:layout_marginEnd="8dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/btn_refresh_page"
+            android:focusable="true"
             android:padding="8dp"
             android:src="@drawable/ic_refresh"
             app:tint="@color/text_white" />
@@ -72,17 +73,18 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnExitExam"
             android:layout_width="wrap_content"
-            android:layout_height="36dp"
+            android:layout_height="40dp"
             android:backgroundTint="@color/danger"
+            android:focusable="true"
             android:fontFamily="sans-serif-bold"
             android:letterSpacing="0.04"
-            android:paddingStart="12dp"
+            android:paddingStart="14dp"
             android:paddingTop="0dp"
-            android:paddingEnd="12dp"
+            android:paddingEnd="14dp"
             android:paddingBottom="0dp"
             android:text="@string/btn_exit_exam"
             android:textColor="@color/text_white"
-            android:textSize="11sp"
+            android:textSize="@dimen/caption_text_size"
             app:cornerRadius="8dp" />
 
     </LinearLayout>
@@ -123,17 +125,17 @@
             android:elevation="6dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingStart="14dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="14dp"
-            android:paddingBottom="8dp"
+            android:paddingStart="16dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="10dp"
             android:visibility="gone"
             tools:visibility="visible">
 
             <ImageView
                 android:id="@+id/imgCacheBannerIcon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 android:src="@drawable/ic_warning"
                 app:tint="@color/brand_gold" />
 
@@ -141,122 +143,146 @@
                 android:id="@+id/tvCacheBannerText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="12dp"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/cache_banner_offline"
                 android:textColor="@color/text_white"
-                android:textSize="12sp" />
+                android:textSize="@dimen/subtitle_text_size" />
         </LinearLayout>
 
-        <!-- Offline Screen (Full Overlay) -->
-        <LinearLayout
+        <!-- Offline Screen (Full Overlay with Responsive Centered Content) -->
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutOffline"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/bg_main"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="32dp"
+            android:padding="@dimen/content_padding"
             android:visibility="gone"
             tools:visibility="gone">
 
-            <ImageView
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:src="@drawable/ic_wifi_off" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="sans-serif-black"
-                android:letterSpacing="0.05"
-                android:text="@string/offline_title"
-                android:textColor="@color/brand_primary_dark"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:lineSpacingExtra="3dp"
-                android:text="@string/offline_desc"
-                android:textColor="@color/text_secondary"
-                android:textSize="14sp" />
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_max="@dimen/content_max_width">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnRetryOffline"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_marginTop="24dp"
-                android:backgroundTint="@color/brand_accent"
-                android:fontFamily="sans-serif-bold"
-                android:letterSpacing="0.04"
-                android:paddingStart="28dp"
-                android:paddingEnd="28dp"
-                android:text="@string/btn_retry"
-                android:textColor="@color/text_white"
-                app:cornerRadius="10dp"
-                app:icon="@drawable/ic_refresh"
-                app:iconTint="@color/text_white" />
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/ic_wifi_off" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="sans-serif-black"
+                    android:letterSpacing="0.05"
+                    android:text="@string/offline_title"
+                    android:textColor="@color/brand_primary_dark"
+                    android:textSize="@dimen/title_text_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:lineSpacingExtra="3dp"
+                    android:text="@string/offline_desc"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/body_text_size" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRetryOffline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/secondary_button_height"
+                    android:layout_marginTop="24dp"
+                    android:backgroundTint="@color/brand_accent"
+                    android:focusable="true"
+                    android:fontFamily="sans-serif-bold"
+                    android:letterSpacing="0.04"
+                    android:paddingStart="28dp"
+                    android:paddingEnd="28dp"
+                    android:text="@string/btn_retry"
+                    android:textColor="@color/text_white"
+                    android:textSize="@dimen/button_text_size"
+                    app:cornerRadius="@dimen/button_corner_radius"
+                    app:icon="@drawable/ic_refresh"
+                    app:iconTint="@color/text_white" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- Error Screen (Page Failed to Load / Timeout) -->
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutError"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/bg_main"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="32dp"
+            android:padding="@dimen/content_padding"
             android:visibility="gone"
             tools:visibility="gone">
 
-            <ImageView
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:src="@drawable/ic_warning"
-                app:tint="@color/danger" />
-
-            <TextView
-                android:id="@+id/tvErrorTitle"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="sans-serif-bold"
-                android:text="@string/error_unable_to_load"
-                android:textColor="@color/brand_primary_dark"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/tvErrorDetail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:textColor="@color/text_secondary"
-                android:textSize="13sp"
-                tools:text="ERR_CONNECTION_TIMED_OUT" />
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_max="@dimen/content_max_width">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnRetryError"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/brand_accent"
-                android:fontFamily="sans-serif-bold"
-                android:letterSpacing="0.04"
-                android:paddingStart="24dp"
-                android:paddingEnd="24dp"
-                android:text="@string/btn_retry"
-                android:textColor="@color/text_white"
-                app:cornerRadius="10dp"
-                app:icon="@drawable/ic_refresh"
-                app:iconTint="@color/text_white" />
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:src="@drawable/ic_warning"
+                    app:tint="@color/danger" />
+
+                <TextView
+                    android:id="@+id/tvErrorTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="sans-serif-bold"
+                    android:text="@string/error_unable_to_load"
+                    android:textColor="@color/brand_primary_dark"
+                    android:textSize="@dimen/title_text_size" />
+
+                <TextView
+                    android:id="@+id/tvErrorDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/body_text_size"
+                    tools:text="ERR_CONNECTION_TIMED_OUT" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRetryError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/secondary_button_height"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="@color/brand_accent"
+                    android:focusable="true"
+                    android:fontFamily="sans-serif-bold"
+                    android:letterSpacing="0.04"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:text="@string/btn_retry"
+                    android:textColor="@color/text_white"
+                    android:textSize="@dimen/button_text_size"
+                    app:cornerRadius="@dimen/button_corner_radius"
+                    app:icon="@drawable/ic_refresh"
+                    app:iconTint="@color/text_white" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>
 

@@ -6,7 +6,7 @@
     android:background="@drawable/bg_card"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:padding="24dp">
+    android:padding="@dimen/dialog_padding">
 
     <!-- Warning Icon -->
     <ImageView
@@ -26,7 +26,7 @@
         android:letterSpacing="0.03"
         android:text="@string/dialog_finish_title"
         android:textColor="@color/danger"
-        android:textSize="18sp" />
+        android:textSize="@dimen/button_text_size" />
 
     <!-- Alert Message -->
     <TextView
@@ -37,7 +37,7 @@
         android:lineSpacingExtra="3dp"
         android:text="@string/dialog_finish_message"
         android:textColor="@color/text_primary"
-        android:textSize="14sp" />
+        android:textSize="@dimen/body_text_size" />
 
     <!-- Warning Badge -->
     <LinearLayout
@@ -57,7 +57,7 @@
             android:fontFamily="sans-serif-bold"
             android:text="@string/buzzer_badge_notice"
             android:textColor="@color/danger"
-            android:textSize="12sp" />
+            android:textSize="@dimen/caption_text_size" />
     </LinearLayout>
 
     <!-- Action Buttons -->
@@ -71,25 +71,29 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCancelFinish"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/secondary_button_height"
             android:layout_weight="1"
             android:backgroundTint="@color/bg_main"
+            android:focusable="true"
             android:fontFamily="sans-serif-bold"
             android:text="@string/btn_cancel"
             android:textColor="@color/text_secondary"
-            app:cornerRadius="10dp" />
+            android:textSize="@dimen/button_text_size"
+            app:cornerRadius="@dimen/button_corner_radius" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnConfirmFinish"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/secondary_button_height"
             android:layout_marginStart="12dp"
             android:layout_weight="1"
             android:backgroundTint="@color/danger"
+            android:focusable="true"
             android:fontFamily="sans-serif-bold"
             android:text="@string/btn_finish"
             android:textColor="@color/text_white"
-            app:cornerRadius="10dp" />
+            android:textSize="@dimen/button_text_size"
+            app:cornerRadius="@dimen/button_corner_radius" />
     </LinearLayout>
 
 </LinearLayout>

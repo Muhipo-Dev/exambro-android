@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.muhipo.exambrowser"
-        minSdk = 24
+        minSdk = 23
         targetSdk = 35
         versionCode = 6
         versionName = "1.6"

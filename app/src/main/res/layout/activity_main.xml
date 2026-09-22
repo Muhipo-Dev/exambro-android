@@ -8,12 +8,12 @@
     android:background="@color/bg_main"
     android:fillViewport="true">
 
-    <!-- Center Container with Responsive Max Width constraint for Tablets and Foldables -->
+    <!-- Center Container with Responsive Max Width constraint for Tablets, Android TV, Foldables & 16:9 Screens -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/contentLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp">
+        android:padding="@dimen/content_padding">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -22,9 +22,9 @@
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintWidth_max="540dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="@dimen/content_max_width">
 
             <!-- Active Session Recovery Alert Card -->
             <com.google.android.material.card.MaterialCardView
@@ -32,6 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
+                android:focusable="true"
                 android:visibility="gone"
                 app:cardBackgroundColor="@color/warning_bg"
                 app:cardCornerRadius="16dp"
@@ -44,7 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/card_padding">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -52,7 +53,7 @@
                         android:fontFamily="sans-serif-bold"
                         android:text="Sesi Ujian Aktif Ditemukan"
                         android:textColor="@color/brand_primary_dark"
-                        android:textSize="15sp" />
+                        android:textSize="@dimen/body_text_size" />
 
                     <TextView
                         android:id="@+id/tvActiveSessionUrl"
@@ -62,20 +63,21 @@
                         android:ellipsize="middle"
                         android:singleLine="true"
                         android:textColor="@color/text_secondary"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/subtitle_text_size"
                         tools:text="http://192.168.1.100:8080/cbt" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnResumeExam"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
+                        android:layout_height="@dimen/secondary_button_height"
                         android:layout_marginTop="12dp"
                         android:backgroundTint="@color/warning"
+                        android:focusable="true"
                         android:fontFamily="sans-serif-bold"
                         android:text="LANJUTKAN UJIAN"
                         android:textColor="@color/brand_primary_dark"
-                        android:textSize="13sp"
-                        app:cornerRadius="10dp"
+                        android:textSize="@dimen/button_text_size"
+                        app:cornerRadius="@dimen/button_corner_radius"
                         app:icon="@drawable/ic_refresh"
                         app:iconGravity="textStart"
                         app:iconTint="@color/brand_primary_dark" />
@@ -101,7 +103,7 @@
                     android:letterSpacing="0.06"
                     android:text="@string/school_header"
                     android:textColor="@color/brand_green"
-                    android:textSize="11sp" />
+                    android:textSize="@dimen/caption_text_size" />
             </LinearLayout>
 
             <!-- Main App Logo Container -->
@@ -116,8 +118,8 @@
                 android:padding="8dp">
 
                 <ImageView
-                    android:layout_width="180dp"
-                    android:layout_height="180dp"
+                    android:layout_width="@dimen/logo_size"
+                    android:layout_height="@dimen/logo_size"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/school_header"
                     android:scaleType="fitCenter"
@@ -134,7 +136,7 @@
                 android:letterSpacing="0.06"
                 android:text="@string/title_exam_browser"
                 android:textColor="@color/brand_navy"
-                android:textSize="26sp" />
+                android:textSize="@dimen/title_text_size" />
 
             <TextView
                 android:id="@+id/tvSubtitle"
@@ -146,7 +148,7 @@
                 android:letterSpacing="0.02"
                 android:text="@string/subtitle_secure_env"
                 android:textColor="@color/text_secondary"
-                android:textSize="13sp" />
+                android:textSize="@dimen/subtitle_text_size" />
 
             <!-- Security Badge -->
             <LinearLayout
@@ -175,14 +177,14 @@
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/status_restricted_mode"
                     android:textColor="@color/brand_accent"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/caption_text_size" />
             </LinearLayout>
 
             <!-- Main Interactive Card Container -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="24dp"
                 app:cardBackgroundColor="@color/text_white"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="4dp"
@@ -194,7 +196,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="@dimen/card_padding">
 
                     <TextView
                         android:id="@+id/tvInstruction"
@@ -205,20 +207,21 @@
                         android:lineSpacingExtra="3dp"
                         android:text="@string/info_scan_instruction"
                         android:textColor="@color/text_secondary"
-                        android:textSize="13sp" />
+                        android:textSize="@dimen/body_text_size" />
 
                     <!-- Primary Action Button: SCAN QR SERVER -->
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnScanQr"
                         android:layout_width="match_parent"
-                        android:layout_height="56dp"
+                        android:layout_height="@dimen/primary_button_height"
                         android:backgroundTint="@color/brand_accent"
+                        android:focusable="true"
                         android:fontFamily="sans-serif-bold"
                         android:letterSpacing="0.04"
                         android:text="@string/btn_scan_qr"
                         android:textColor="@color/text_white"
-                        android:textSize="14sp"
-                        app:cornerRadius="12dp"
+                        android:textSize="@dimen/button_text_size"
+                        app:cornerRadius="@dimen/button_corner_radius"
                         app:icon="@drawable/ic_qr_scan"
                         app:iconGravity="textStart"
                         app:iconPadding="10dp"
@@ -229,14 +232,15 @@
                         android:id="@+id/btnInfoApp"
                         style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="match_parent"
-                        android:layout_height="52dp"
+                        android:layout_height="@dimen/secondary_button_height"
                         android:layout_marginTop="12dp"
+                        android:focusable="true"
                         android:fontFamily="sans-serif-bold"
                         android:letterSpacing="0.03"
                         android:text="@string/btn_info_app"
                         android:textColor="@color/brand_navy"
-                        android:textSize="12sp"
-                        app:cornerRadius="12dp"
+                        android:textSize="@dimen/button_text_size"
+                        app:cornerRadius="@dimen/button_corner_radius"
                         app:icon="@drawable/ic_settings"
                         app:iconGravity="textStart"
                         app:iconPadding="8dp"
@@ -244,20 +248,21 @@
                         app:strokeColor="@color/brand_navy"
                         app:strokeWidth="1.5dp" />
 
-                    <!-- Secondary Action Button: MANUAL URL / IP (Hidden, accessed via logo tap) -->
+                    <!-- Secondary Action Button: MANUAL URL / IP (Hidden by default, accessed via logo tap) -->
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnEnterUrlManually"
                         style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="match_parent"
-                        android:layout_height="52dp"
+                        android:layout_height="@dimen/secondary_button_height"
                         android:layout_marginTop="12dp"
-                        android:visibility="gone"
+                        android:focusable="true"
                         android:fontFamily="sans-serif-bold"
                         android:letterSpacing="0.03"
                         android:text="@string/btn_enter_url_manually"
                         android:textColor="@color/brand_accent"
-                        android:textSize="13sp"
-                        app:cornerRadius="12dp"
+                        android:textSize="@dimen/button_text_size"
+                        android:visibility="gone"
+                        app:cornerRadius="@dimen/button_corner_radius"
                         app:strokeColor="@color/brand_accent"
                         app:strokeWidth="1.5dp" />
                 </LinearLayout>
@@ -273,7 +278,7 @@
                 android:gravity="center"
                 android:text="@string/info_android_support"
                 android:textColor="@color/brand_primary"
-                android:textSize="12sp" />
+                android:textSize="@dimen/body_text_size" />
 
             <TextView
                 android:id="@+id/tvVersion"
@@ -283,7 +288,7 @@
                 android:gravity="center"
                 android:text="@string/info_version"
                 android:textColor="@color/text_muted"
-                android:textSize="11sp" />
+                android:textSize="@dimen/caption_text_size" />
 
         </LinearLayout>
 

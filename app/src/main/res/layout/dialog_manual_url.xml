@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_card"
     android:orientation="vertical"
-    android:padding="24dp">
+    android:padding="@dimen/dialog_padding">
 
     <TextView
         android:layout_width="wrap_content"
@@ -14,7 +14,7 @@
         android:letterSpacing="0.03"
         android:text="@string/dialog_manual_url_title"
         android:textColor="@color/brand_primary_dark"
-        android:textSize="18sp" />
+        android:textSize="@dimen/button_text_size" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -22,15 +22,16 @@
         android:layout_marginTop="4dp"
         android:text="Masukkan IP atau URL server ujian sekolah"
         android:textColor="@color/text_secondary"
-        android:textSize="12sp" />
+        android:textSize="@dimen/subtitle_text_size" />
 
     <EditText
         android:id="@+id/etExamUrl"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="@dimen/secondary_button_height"
         android:layout_marginTop="16dp"
         android:autofillHints=""
         android:background="@drawable/bg_edit_text"
+        android:focusable="true"
         android:fontFamily="sans-serif"
         android:hint="@string/dialog_manual_url_hint"
         android:imeOptions="actionDone"
@@ -38,7 +39,7 @@
         android:maxLines="1"
         android:textColor="@color/text_primary"
         android:textColorHint="@color/text_muted"
-        android:textSize="14sp" />
+        android:textSize="@dimen/body_text_size" />
 
     <TextView
         android:id="@+id/tvUrlError"
@@ -47,7 +48,7 @@
         android:layout_marginTop="6dp"
         android:text="@string/error_invalid_url"
         android:textColor="@color/danger"
-        android:textSize="12sp"
+        android:textSize="@dimen/caption_text_size"
         android:visibility="gone" />
 
     <LinearLayout
@@ -61,24 +62,28 @@
             android:id="@+id/btnCancelManualUrl"
             style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/secondary_button_height"
+            android:focusable="true"
             android:fontFamily="sans-serif-medium"
             android:text="@string/btn_cancel"
             android:textColor="@color/text_secondary"
-            app:cornerRadius="10dp" />
+            android:textSize="@dimen/button_text_size"
+            app:cornerRadius="@dimen/button_corner_radius" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSubmitManualUrl"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/secondary_button_height"
             android:layout_marginStart="8dp"
             android:backgroundTint="@color/brand_accent"
+            android:focusable="true"
             android:fontFamily="sans-serif-bold"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:text="@string/btn_start_exam"
             android:textColor="@color/text_white"
-            app:cornerRadius="10dp" />
+            android:textSize="@dimen/button_text_size"
+            app:cornerRadius="@dimen/button_corner_radius" />
     </LinearLayout>
 
 </LinearLayout>

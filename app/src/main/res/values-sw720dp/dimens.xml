@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Large Tablet & Android TV Dimensions (sw >= 720dp) -->
+    <dimen name="content_max_width">760dp</dimen>
+    <dimen name="content_padding">48dp</dimen>
+    <dimen name="card_padding">36dp</dimen>
+
+    <!-- Logo & Image Sizes -->
+    <dimen name="logo_size">260dp</dimen>
+
+    <!-- Typography -->
+    <dimen name="title_text_size">36sp</dimen>
+    <dimen name="subtitle_text_size">17sp</dimen>
+    <dimen name="body_text_size">15sp</dimen>
+    <dimen name="caption_text_size">13sp</dimen>
+
+    <!-- Buttons -->
+    <dimen name="primary_button_height">68dp</dimen>
+    <dimen name="secondary_button_height">60dp</dimen>
+    <dimen name="button_text_size">18sp</dimen>
+    <dimen name="button_corner_radius">16dp</dimen>
+
+    <!-- Navigation Bar & Dialogs -->
+    <dimen name="navbar_height">72dp</dimen>
+    <dimen name="dialog_max_width">600dp</dimen>
+    <dimen name="dialog_padding">32dp</dimen>
+
+    <!-- Scanner Topbar -->
+    <dimen name="scanner_topbar_padding_top">24dp</dimen>
+</resources>
