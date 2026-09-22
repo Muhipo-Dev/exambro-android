@@ -1,0 +1,50 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="280dp"
+    android:height="120dp"
+    android:viewportWidth="280"
+    android:viewportHeight="120">
+
+    <!-- Background Card Badge -->
+    <path
+        android:fillColor="#0F2C59"
+        android:pathData="M16,10 L264,10 A16,16 0 0,1 280,26 L280,94 A16,16 0 0,1 264,110 L16,110 A16,16 0 0,1 0,94 L0,26 A16,16 0 0,1 16,10 Z" />
+
+    <!-- Gold Accent Border -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#F59E0B"
+        android:strokeWidth="3"
+        android:pathData="M16,10 L264,10 A16,16 0 0,1 280,26 L280,94 A16,16 0 0,1 264,110 L16,110 A16,16 0 0,1 0,94 L0,26 A16,16 0 0,1 16,10 Z" />
+
+    <!-- Blue Gradient Accent Strip -->
+    <path
+        android:fillColor="#2563EB"
+        android:pathData="M16,10 L264,10 A16,16 0 0,1 280,26 L280,32 L0,32 L0,26 A16,16 0 0,1 16,10 Z" />
+
+    <!-- Gold Accent Line -->
+    <path
+        android:fillColor="#F59E0B"
+        android:pathData="M24,32 L256,32 L256,35 L24,35 Z" />
+
+    <!-- "SMA" Text -->
+    <path
+        android:fillColor="#F59E0B"
+        android:pathData="M72,48 L80,48 L80,52 L75,52 L75,56 L79,56 C82,56 84,58 84,61 L84,67 C84,70 82,72 79,72 L71,72 L71,68 L76,68 L76,64 L72,64 C69,64 67,62 67,59 L67,53 C67,50 69,48 72,48 Z
+                          M90,48 L96,48 L101,60 L106,48 L112,48 L112,72 L107,72 L107,57 L102,70 L100,70 L95,57 L95,72 L90,72 Z
+                          M120,48 L126,48 L133,72 L127,72 L126,67 L120,67 L119,72 L114,72 Z M121,63 L125,63 L123,55 Z" />
+
+    <!-- "MUHIPO" Text -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M142,48 L148,48 L153,60 L158,48 L164,48 L164,72 L159,72 L159,57 L154,70 L152,70 L147,57 L147,72 L142,72 Z
+                          M171,48 L177,48 L177,63 C177,67 180,69 184,69 C188,69 191,67 191,63 L191,48 L197,48 L197,63 C197,70 191,73 184,73 C177,73 171,70 171,63 Z
+                          M204,48 L210,48 L210,57 L217,57 L217,48 L223,48 L223,72 L217,72 L217,62 L210,62 L210,72 L204,72 Z
+                          M230,48 L236,48 L236,72 L230,72 Z
+                          M243,48 L251,48 C256,48 259,51 259,55 C259,59 256,62 251,62 L248,62 L248,72 L243,72 Z M248,52 L248,58 L251,58 C253,58 254,57 254,55 C254,53 253,52 251,52 Z" />
+
+    <!-- Subtitle Banner Accent Line -->
+    <path
+        android:fillColor="#93C5FD"
+        android:pathData="M35,88 L245,88 L245,90 L35,90 Z" />
+
+</vector>

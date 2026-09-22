@@ -1,0 +1,27 @@
+<resources>
+    <!-- Base Application Theme -->
+    <style name="Theme.ExamBrowser" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/brand_primary</item>
+        <item name="colorPrimaryDark">@color/brand_primary_dark</item>
+        <item name="colorSecondary">@color/brand_accent</item>
+        <item name="android:statusBarColor">@color/bg_main</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowBackground">@color/bg_main</item>
+    </style>
+
+    <!-- Fullscreen Theme for Exam and Scanner Activities -->
+    <style name="Theme.ExamBrowser.Fullscreen" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/brand_primary</item>
+        <item name="colorPrimaryDark">@color/brand_primary_dark</item>
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+    </style>
+
+    <!-- Dialog Theme -->
+    <style name="Theme.ExamBrowser.Dialog" parent="Theme.Material3.DayNight.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowElevation">8dp</item>
+    </style>
+</resources>

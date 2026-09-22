@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SMA Muhammadiyah 1 Ponorogo (MUHIPO) Blue Theme Palette -->
+    <color name="brand_blue_primary">#0F2C59</color>
+    <color name="brand_blue_dark">#0B192C</color>
+    <color name="brand_navy">#0F2C59</color>
+    <color name="brand_navy_dark">#0B192C</color>
+    <color name="brand_blue_accent">#2563EB</color>
+    <color name="brand_blue_light">#3B82F6</color>
+    <color name="brand_blue_soft">#E0F2FE</color>
+
+    <color name="brand_primary">#0F2C59</color>
+    <color name="brand_primary_dark">#0B192C</color>
+    <color name="brand_accent">#2563EB</color>
+    <color name="brand_accent_light">#3B82F6</color>
+    <color name="brand_green">#0284C7</color>
+    <color name="brand_green_dark">#0369A1</color>
+    <color name="brand_green_light">#38BDF8</color>
+    <color name="brand_emerald">#0284C7</color>
+    <color name="brand_emerald_dark">#0369A1</color>
+    <color name="brand_gold">#F59E0B</color>
+    <color name="brand_gold_dark">#D97706</color>
+
+    <!-- Surfaces & Backgrounds -->
+    <color name="bg_main">#F0F4F8</color>
+    <color name="surface_card">#FFFFFF</color>
+    <color name="surface_card_stroke">#CBD5E1</color>
+    
+    <!-- Typography -->
+    <color name="text_primary">#0F172A</color>
+    <color name="text_secondary">#475569</color>
+    <color name="text_muted">#94A3B8</color>
+    <color name="text_white">#FFFFFF</color>
+    
+    <!-- Feedback Colors -->
+    <color name="danger">#EF4444</color>
+    <color name="danger_bg">#FEE2E2</color>
+    <color name="warning">#F59E0B</color>
+    <color name="warning_bg">#FEF3C7</color>
+    <color name="success">#0284C7</color>
+    <color name="success_bg">#E0F2FE</color>
+    
+    <!-- Scanner Overlay -->
+    <color name="scanner_overlay">#80000000</color>
+    <color name="scanner_reticle">#3B82F6</color>
+    <color name="scanner_laser">#60A5FA</color>
+</resources>

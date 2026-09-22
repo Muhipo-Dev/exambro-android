@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_card"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:letterSpacing="0.03"
+        android:text="@string/admin_change_pin"
+        android:textColor="@color/brand_primary_dark"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Enter current PIN and choose a new 6-digit PIN"
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/etCurrentPin"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:autofillHints=""
+        android:background="@drawable/bg_edit_text"
+        android:fontFamily="sans-serif"
+        android:hint="Current PIN"
+        android:inputType="numberPassword"
+        android:maxLength="10"
+        android:maxLines="1"
+        android:textColor="@color/text_primary"
+        android:textColorHint="@color/text_muted"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/etNewPin"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:autofillHints=""
+        android:background="@drawable/bg_edit_text"
+        android:fontFamily="sans-serif"
+        android:hint="New PIN (min 4 digits)"
+        android:inputType="numberPassword"
+        android:maxLength="10"
+        android:maxLines="1"
+        android:textColor="@color/text_primary"
+        android:textColorHint="@color/text_muted"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tvChangePinError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="Invalid PIN"
+        android:textColor="@color/danger"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCancelChangePin"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:backgroundTint="@color/bg_main"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/btn_cancel"
+            android:textColor="@color/text_secondary"
+            app:cornerRadius="10dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnConfirmChangePin"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:layout_marginStart="12dp"
+            android:backgroundTint="@color/brand_primary"
+            android:fontFamily="sans-serif-bold"
+            android:text="UPDATE PIN"
+            android:textColor="@color/text_white"
+            app:cornerRadius="10dp" />
+    </LinearLayout>
+
+</LinearLayout>

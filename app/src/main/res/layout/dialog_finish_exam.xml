@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_card"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <!-- Warning Icon -->
+    <ImageView
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:contentDescription="Warning"
+        android:src="@drawable/ic_warning"
+        app:tint="@color/danger" />
+
+    <!-- Alert Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:letterSpacing="0.03"
+        android:text="@string/dialog_finish_title"
+        android:textColor="@color/danger"
+        android:textSize="18sp" />
+
+    <!-- Alert Message -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:lineSpacingExtra="3dp"
+        android:text="@string/dialog_finish_message"
+        android:textColor="@color/text_primary"
+        android:textSize="14sp" />
+
+    <!-- Warning Badge -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/bg_badge"
+        android:gravity="center"
+        android:paddingStart="12dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="4dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-bold"
+            android:text="@string/buzzer_badge_notice"
+            android:textColor="@color/danger"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <!-- Action Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCancelFinish"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/bg_main"
+            android:fontFamily="sans-serif-bold"
+            android:text="@string/btn_cancel"
+            android:textColor="@color/text_secondary"
+            app:cornerRadius="10dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnConfirmFinish"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/danger"
+            android:fontFamily="sans-serif-bold"
+            android:text="@string/btn_finish"
+            android:textColor="@color/text_white"
+            app:cornerRadius="10dp" />
+    </LinearLayout>
+
+</LinearLayout>
